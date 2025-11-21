@@ -22,7 +22,7 @@ Conent
 
 ## Overview
 
-![Overall arch](./asset/Overall.jpg)
+![Overall arch](./asset/Overall.png)
 
 The model takes either point clouds or meshes as input and utilizes the spatial coordinates and point attributes of scene points to extract discriminative features for segmentation.
 First, each scene is voxelized and feature representations are constructed through the Initial Feature Embedding module, which primarily employs sparse convolutional operations to efficiently capture spatial  structures within the voxel grid. 
@@ -31,7 +31,7 @@ Fianlly, a UNet shaped upsampling과 classifier를 통해서 공간의 각 ponit
 
 
 ## DW-MSA3D
-![Dawin3D block](./asset/dawin3D_block.jpg)
+![Dawin3D block](./asset/Dawin3D_block.png)
 
 
 
@@ -53,10 +53,10 @@ Fianlly, a UNet shaped upsampling과 classifier를 통해서 공간의 각 ponit
 
 ### Visual comparison
 **Results on Scannet**
-(./asset/ScanNet_vis_mod.jpg)
+![Vis_ScanNet](./asset/ScanNet_vis_mod.jpg)
 
 **Results on S3DIS**
-(./asset/S3DIS_vis_mod.jpg)
+![S3DIS](./asset/S3DIS_vis_mod.jpg)
 
 
 ## Getting Started
