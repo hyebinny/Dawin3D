@@ -7,7 +7,7 @@
 <sup>2</sup> Sangmin Yoon,
 <sup>1</sup> Jungho Yoon
 
-<sup>1</sup>  Ewha Womans University
+<sup>1</sup>  Ewha Womans University  
 <sup>2</sup>  Kookmin University
 
 Paper: ([arXiv 2401.10166](https://arxiv.org/abs/2401.10166))
