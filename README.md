@@ -26,17 +26,20 @@ Conent
 
 The model takes either point clouds or meshes as input and utilizes the spatial coordinates and point attributes of scene points to extract discriminative features for segmentation.
 First, each scene is voxelized and feature representations are constructed through the Initial Feature Embedding module, which primarily employs sparse convolutional operations to efficiently capture spatial  structures within the voxel grid. 
-The initialized voxel features are then progressively refined into high-level representations through a sequene of Dawin3D blocks followed by downsampling, except for the final stage.
-Fianlly, a UNet shaped upsampling과 classifier를 통해서 공간의 각 ponit의 semantic label을 예측한다.
-
+The initialized voxel features are then progressively refined into high-level representations by a sequence of Dawin3D blocks, followed by downsampling at all stages except the final stage.
+Finally, a UNet-style upsampling module and a classifier predict the semantic label for every point in the scene.
 
 ## DW-MSA3D
+
 ![Dawin3D block](./asset/Dawin3D_block.png)
 
+The core of the Dawin3D block is the Dynamic Window Multi-head Self-Attention (DW-MSA) module.
+This module begins by reducing the dimensionality of the input voxel features through a fully connected layer, after which multi-head self-attention is performed under multiple window scales.
+The attention outputs from different window sizes are then projected and combined by computing channel-wise weights through a squeeze-and-excitation strategy.
+This mechanism enables the model to effectively integrate information across spatial regions of diverse scales.
 
 
-
-### Semantic Segmenttion on ScanNet (v2) and S3DIS
+### Semantic Segmention on ScanNet (v2) and S3DIS
 | Method                 | ScanNet Val mIoU | S3DIS Area 5 | S3DIS 6-fold |
 |------------------------|------------------|---------------|---------------|
 | KPConv [35]            | 68.4             | 67.1          | 70.6          |
