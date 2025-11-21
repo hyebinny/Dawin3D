@@ -10,131 +10,39 @@
 <sup>1</sup>  Ewha Womans University  
 <sup>2</sup>  Kookmin University
 
-Paper: ([arXiv 2401.10166](https://arxiv.org/abs/2401.10166))
+📝 Paper: (paper link)
 
 </div>
 
-
-## 🔥 use VMamba with only ***one file*** and in ***fewest steps*** !
-```bash
-conda create -n vmamba python=3.10
-pip install torch==2.2 torchvision torchaudio triton pytest chardet yacs termcolor fvcore seaborn packaging ninja einops numpy==1.24.4 timm==0.4.12
-pip install https://github.com/state-spaces/mamba/releases/download/v2.2.4/mamba_ssm-2.2.4+cu12torch2.2cxx11abiTRUE-cp310-cp310-linux_x86_64.whl
-python vmamba.py
-```
-
-* [**updates**](#white_check_mark-updates)
-* [**abstract**](#abstract)
-* [**overview**](#overview--derivations)
-* [**main results**](#main-results)
-* [**getting started**](#getting-started)
-* [**star history**](#star-history)
-* [**citation**](#citation)
-* [**acknowledgment**](#acknowledgment)
-
-
-## :white_check_mark: Updates
-* **`Sep. 25th, 2024`**: Update: **VMamba is accepted by NeurIPS2024 (spotlight)!**
-* **`June. 14th, 2024`**: Update: we clean the code to be easier to read; we add support for `mamba2`.
-* **`May. 26th, 2024`**: Update: we release the updated weights of VMambav2, together with the new arxiv paper.
-* **`May. 7th, 2024`**: Update: **Important!** using `torch.backends.cudnn.enabled=True` in downstream tasks may be quite slow. If you found vmamba quite slow in your machine, disable it in vmamba.py, else, ignore this.
-* **...**
-
-***for details see [detailed_updates.md](assets/detailed_updates.md)***
 
 ## Abstract
 
 Designing computationally efficient network architectures persists as an ongoing necessity in computer vision. In this paper, we transplant Mamba, a state-space language model, into VMamba, a vision backbone that works in linear time complexity. At the core of VMamba lies a stack of Visual State-Space (VSS) blocks with the 2D Selective Scan (SS2D) module. By traversing along four scanning routes, SS2D helps bridge the gap between the ordered nature of 1D selective scan and the non-sequential structure of 2D vision data, which facilitates the gathering of contextual information from various sources and perspectives. Based on the VSS blocks, we develop a family of VMamba architectures and accelerate them through a succession of architectural and implementation enhancements. Extensive experiments showcase VMamba’s promising performance across diverse visual perception tasks, highlighting its advantages in input scaling efficiency compared to existing benchmark models.
 
 ## Overview
-
-* [**VMamba**](https://arxiv.org/abs/2401.10166) serves as a general-purpose backbone for computer vision.
-
-<p align="center">
-  <img src="assets/architecture.png" alt="architecture" width="80%">
-</p>
-
-* **2D-Selective-Scan of VMamba**
-
-<p align="center">
-  <img src="assets/ss2d.png" alt="arch" width="80%">
-</p>
-
-* **VMamba has global effective receptive field**
-
-<p align="center">
-  <img src="assets/erf.png" alt="erf" width="80%">
-</p>
-
-* **VMamba resembles Transformer-Based Methods in Activation Map**
-<p align="center">
-  <img src="assets/attn.png" alt="attn" width="80%">
-</p>
-<p align="center">
-  <img src="assets/activation_map.png" alt="activation" width="80%">
-</p>
-
-## Main Results
-<!-- copied from assets/performance.md  -->
-
-<!-- :book: -->
-<!-- ***The checkpoints of some of the models listed below will be released in weeks!*** -->
-
-:book:
-***For details see [performance.md](./assets/performance.md).***
-
-### **Classification on ImageNet-1K**
-| name | pretrain | resolution |acc@1 | #params | FLOPs | TP. | Train TP. | configs/logs/ckpts |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| Swin-T | ImageNet-1K | 224x224 | 81.2 | 28M | 4.5G | 1244 |987 | -- |
-| Swin-S | ImageNet-1K | 224x224 | 83.2 | 50M | 8.7G | 718 |642 | -- |
-| Swin-B | ImageNet-1K | 224x224 | 83.5 | 88M | 15.4G | 458 |496 | -- |
-| VMamba-S[`s2l15`] | ImageNet-1K | 224x224 | 83.6 | 50M | 8.7G | 877 | 314| [config](classification/configs/vssm/vmambav2_small_224.yaml)/[log](https://github.com/MzeroMiko/VMamba/releases/download/%23v2cls/vssm_small_0229.txt)/[ckpt](https://github.com/MzeroMiko/VMamba/releases/download/%23v2cls/vssm_small_0229_ckpt_epoch_222.pth) |
-| VMamba-B[`s2l15`] | ImageNet-1K | 224x224 | 83.9 | 89M | 15.4G | 646 | 247 | [config](classification/configs/vssm/vmambav2_base_224.yaml)/[log](https://github.com/MzeroMiko/VMamba/releases/download/%23v2cls/vssm_base_0229.txt)/[ckpt](https://github.com/MzeroMiko/VMamba/releases/download/%23v2cls/vssm_base_0229_ckpt_epoch_237.pth) |
-| VMamba-T[`s1l8`] | ImageNet-1K | 224x224 | 82.6 | 30M | 4.9G | 1686| 571| [config](classification/configs/vssm/vmambav2v_tiny_224.yaml)/[log](https://github.com/MzeroMiko/VMamba/releases/download/%23v2cls/vssm1_tiny_0230s.txt)/[ckpt](https://github.com/MzeroMiko/VMamba/releases/download/%23v2cls/vssm1_tiny_0230s_ckpt_epoch_264.pth) |
+(./assets/Overall.png)
 
 
-* *Models in this subsection is trained from scratch with random or manual initialization. The hyper-parameters are inherited from Swin, except for `drop_path_rate` and `EMA`. All models are trained with EMA except for the `Vanilla-VMamba-T`.*
-* *`TP.(Throughput)` and `Train TP. (Train Throughput)` are assessed on an A100 GPU paired with an AMD EPYC 7542 CPU, with batch size 128. `Train TP.` is tested with mix-resolution, excluding the time consumption of optimizers.*
-* *`FLOPs` and `parameters` are now gathered with `head` (In previous versions, they were counted without head, so the numbers raise a little bit).*
-* *we calculate `FLOPs` with the algorithm @albertgu [provides](https://github.com/state-spaces/mamba/issues/110), which will be bigger than previous calculation (which is based on the `selective_scan_ref` function, and ignores the hardware-aware algorithm).*
+
+### Semantic Segmenttion on ScanNet (v2) and S3DIS
+| Method                 | ScanNet Val mIoU | S3DIS Area 5 | S3DIS 6-fold |
+|------------------------|------------------|---------------|---------------|
+| KPConv [35]            | 68.4             | 67.1          | 70.6          |
+| RepSurf [51]           | 70.0             | 68.9          | 74.3          |
+| DeepViewAgg [52]       | 71.0             | 67.2          | 74.7          |
+| MinkowskiNet [6]       | 72.1             | 65.4          | -             |
+| Point Transformer [32] | -                | 70.4          | 73.5          |
+| Stratified Transformer [33] | 74.3      | 72.0          | -             |
+| Swin3D-S [34]          | 76.4             | **72.5**      | **76.9**      |
+| Swin3D-L [34]          | 74.2             | -             | -             |
+| **Dawin3D-S (Ours)**   | **76.4**         | 70.2          | 75.2          |
+| **Dawin3D-L (Ours)**   | **76.7**         | 70.3          | 75.4          |
 
 
-### **Object Detection on COCO**
-  
-| Backbone | #params | FLOPs | Detector | bboxAP | bboxAP50 | bboxAP75 | segmAP | segmAP50 | segmAP75 | configs/logs/ckpts |
-| :---: | :---: | :---: | :---: | :---: | :---: |:---: |:---: |:---: |:---: |:---: |
-| Swin-T | 48M | 267G | MaskRCNN@1x | 42.7 |65.2 |46.8 |39.3 |62.2 |42.2 |-- |
-| Swin-S | 69M | 354G | MaskRCNN@1x | 44.8 |66.6 |48.9 |40.9 |63.4 |44.2 |-- |-- |
-| Swin-B | 107M | 496G | MaskRCNN@1x | 46.9|--|--| 42.3|--|--|-- |-- |
-| VMamba-S[`s2l15`] | 70M | 384G | MaskRCNN@1x | 48.7 |70.0 |53.4 |43.7 |67.3 |47.0 | [config](detection/configs/vssm1/mask_rcnn_vssm_fpn_coco_small.py)/[log](https://github.com/MzeroMiko/VMamba/releases/download/%23v2det/mask_rcnn_vssm_fpn_coco_small.log)/[ckpt](https://github.com/MzeroMiko/VMamba/releases/download/%23v2det/mask_rcnn_vssm_fpn_coco_small_epoch_11.pth) |
-| VMamba-B[`s2l15`] | 108M | 485G | MaskRCNN@1x | 49.2 |71.4 |54.0 |44.1 |68.3 |47.7 | [config](detection/configs/vssm1/mask_rcnn_vssm_fpn_coco_base.py)/[log](https://github.com/MzeroMiko/VMamba/releases/download/%23v2det/mask_rcnn_vssm_fpn_coco_base.log)/[ckpt](https://github.com/MzeroMiko/VMamba/releases/download/%23v2det/mask_rcnn_vssm_fpn_coco_base_epoch_11.pth) |
-| VMamba-B[`s2l15`] | 108M | 485G | MaskRCNN@1x[`bs8`] | 49.2 |70.9 |53.9 |43.9 |67.7 |47.6 | [config](detection/configs/vssm1/mask_rcnn_vssm_fpn_coco_base.py)/[log](https://github.com/MzeroMiko/VMamba/releases/download/%23v2det/mask_rcnn_vssm_fpn_coco_base_bs8.log)/[ckpt](https://github.com/MzeroMiko/VMamba/releases/download/%23v2det/mask_rcnn_vssm_fpn_coco_base_epoch_12_bs8.pth) |
-| VMamba-T[`s1l8`] | 50M | 271G | MaskRCNN@1x | 47.3 |69.3 |52.0 |42.7 |66.4 |45.9 | [config](detection/configs/vssm1/mask_rcnn_vssm_fpn_coco_tiny.py)/[log](https://github.com/MzeroMiko/VMamba/releases/download/%23v2det/mask_rcnn_vssm_fpn_coco_tiny_s.log)/[ckpt](https://github.com/MzeroMiko/VMamba/releases/download/%23v2det/mask_rcnn_vssm_fpn_coco_tiny_s_epoch_12.pth) |
-| :---: | :---: | :---: | :---: | :---: | :---: |:---: |:---: |:---: |:---: |:---: |:---: |:---: |
-| Swin-T | 48M | 267G | MaskRCNN@3x | 46.0 |68.1 |50.3 |41.6 |65.1 |44.9 |-- |
-| Swin-S | 69M | 354G | MaskRCNN@3x | 48.2 |69.8 |52.8 |43.2 |67.0 |46.1  |-- |
-| VMamba-S[`s2l15`] | 70M | 384G | MaskRCNN@3x | 49.9 |70.9 |54.7 |44.20 |68.2 |47.7 | [config](detection/configs/vssm1/mask_rcnn_vssm_fpn_coco_small_ms_3x.py)/[log](https://github.com/MzeroMiko/VMamba/releases/download/%23v2det/mask_rcnn_vssm_fpn_coco_small_ms_3x.log)/[ckpt](https://github.com/MzeroMiko/VMamba/releases/download/%23v2det/mask_rcnn_vssm_fpn_coco_small_ms_3x_epoch_32.pth) |
-| VMamba-T[`s1l8`] | 50M | 271G | MaskRCNN@3x | 48.8 |70.4 |53.50 |43.7 |67.4 |47.0 | [config](detection/configs/vssm1/mask_rcnn_vssm_fpn_coco_tiny_ms_3x.py)/[log](https://github.com/MzeroMiko/VMamba/releases/download/%23v2det/mask_rcnn_vssm_fpn_coco_tiny_ms_3x_s.log)/[ckpt](https://github.com/MzeroMiko/VMamba/releases/download/%23v2det/mask_rcnn_vssm_fpn_coco_tiny_ms_3x_s_epoch_31.pth) |
+### Visual comparison
+(./assets/Vis.png)
 
 
-* *Models in this subsection is initialized from the models trained in `classfication`.*
-* *we now calculate FLOPs with the algrithm @albertgu [provides](https://github.com/state-spaces/mamba/issues/110), which will be bigger than previous calculation (which is based on the `selective_scan_ref` function, and ignores the hardware-aware algrithm).*
-
-### **Semantic Segmentation on ADE20K**
-
-| Backbone | Input|  #params | FLOPs | Segmentor | mIoU(SS) | mIoU(MS) | configs/logs/logs(ms)/ckpts |
-| :---: | :---: | :---: | :---: | :---: | :---: |:---: |:---: |
-| Swin-T | 512x512 | 60M | 945G | UperNet@160k | 44.4| 45.8| -- |
-| Swin-S | 512x512 | 81M | 1039G | UperNet@160k | 47.6| 49.5| -- |
-| Swin-B | 512x512 | 121M | 1188G | UperNet@160k | 48.1| 49.7|-- |
-| VMamba-S[`s2l15`] | 512x512 | 82M | 1028G | UperNet@160k | 50.6| 51.2|[config](segmentation/configs/vssm1/upernet_vssm_4xb4-160k_ade20k-512x512_small.py)/[log](https://github.com/MzeroMiko/VMamba/releases/download/%23v2seg/upernet_vssm_4xb4-160k_ade20k-512x512_small.log)/[log(ms)](https://github.com/MzeroMiko/VMamba/releases/download/%23v2seg/upernet_vssm_4xb4-160k_ade20k-512x512_small_tta.log)/[ckpt](https://github.com/MzeroMiko/VMamba/releases/download/%23v2seg/upernet_vssm_4xb4-160k_ade20k-512x512_small_iter_144000.pth) |
-| VMamba-B[`s2l15`] | 512x512 | 122M | 1170G | UperNet@160k | 51.0| 51.6|[config](segmentation/configs/vssm1/upernet_vssm_4xb4-160k_ade20k-512x512_base.py)/[log](https://github.com/MzeroMiko/VMamba/releases/download/%23v2seg/upernet_vssm_4xb4-160k_ade20k-512x512_base.log)/[log(ms)](https://github.com/MzeroMiko/VMamba/releases/download/%23v2seg/upernet_vssm_4xb4-160k_ade20k-512x512_base_tta.log)/[ckpt](https://github.com/MzeroMiko/VMamba/releases/download/%23v2seg/upernet_vssm_4xb4-160k_ade20k-512x512_base_iter_160000.pth) |
-| VMamba-T[`s1l8`] | 512x512 | 62M | 949G | UperNet@160k | 47.9| 48.8| [config](segmentation/configs/vssm1/upernet_vssm_4xb4-160k_ade20k-512x512_tiny.py)/[log](https://github.com/MzeroMiko/VMamba/releases/download/%23v2seg/upernet_vssm_4xb4-160k_ade20k-512x512_tiny_s.log)/[log(ms)](https://github.com/MzeroMiko/VMamba/releases/download/%23v2seg/upernet_vssm_4xb4-160k_ade20k-512x512_tiny_s_tta.log)/[ckpt](https://github.com/MzeroMiko/VMamba/releases/download/%23v2seg/upernet_vssm_4xb4-160k_ade20k-512x512_tiny_s_iter_160000.pth) |
-
-
-* *Models in this subsection is initialized from the models trained in `classfication`.*
-* *we now calculate FLOPs with the algrithm @albertgu [provides](https://github.com/state-spaces/mamba/issues/110), which will be bigger than previous calculation (which is based on the `selective_scan_ref` function, and ignores the hardware-aware algrithm).*
 
 ## Getting Started
 
@@ -225,41 +133,13 @@ For more information about detection and segmentation tasks, please refer to the
 
 ### Analysis Tools
 
-VMamba includes tools for visualizing mamba "attention" and effective receptive field, analysing throughput and train-throughput. Use the following commands to perform analysis:
-
-```bash
-# Visualize Mamba "Attention"
-CUDA_VISIBLE_DEVICES=0 python analyze/attnmap.py
-
-# Analyze the effective receptive field
-CUDA_VISIBLE_DEVICES=0 python analyze/erf.py
-
-# Analyze the throughput and train throughput
-CUDA_VISIBLE_DEVICES=0 python analyze/tp.py
-
-```
-
-***We also included other analysing tools that we may use in this project. Thanks to all who have contributes to these tools.***
-
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=MzeroMiko/VMamba&type=Date)](https://star-history.com/#MzeroMiko/VMamba&Date)
 
 ## Citation
 
 ```
-@article{liu2024vmamba,
-  title={VMamba: Visual State Space Model},
-  author={Liu, Yue and Tian, Yunjie and Zhao, Yuzhong and Yu, Hongtian and Xie, Lingxi and Wang, Yaowei and Ye, Qixiang and Liu, Yunfan},
-  journal={arXiv preprint arXiv:2401.10166},
-  year={2024}
-}
+bib
 ```
 
 ## Acknowledgment
 
-This project is based on Mamba ([paper](https://arxiv.org/abs/2312.00752), [code](https://github.com/state-spaces/mamba)), Swin-Transformer ([paper](https://arxiv.org/pdf/2103.14030.pdf), [code](https://github.com/microsoft/Swin-Transformer)), ConvNeXt ([paper](https://arxiv.org/abs/2201.03545), [code](https://github.com/facebookresearch/ConvNeXt)), [OpenMMLab](https://github.com/open-mmlab),
-and the `analyze/get_erf.py` is adopted from [replknet](https://github.com/DingXiaoH/RepLKNet-pytorch/tree/main/erf), thanks for their excellent works.
-
-* **We release [Fast-iTPN](https://github.com/sunsmarterjie/iTPN/tree/main/fast_itpn) recently, which reports the best performance on ImageNet-1K at Tiny/Small/Base level models as far as we know. (Tiny-24M-86.5%, Small-40M-87.8%, Base-85M-88.75%)**
+This project is based on Swin3D (https://github.com/microsoft/Swin3D.git).
