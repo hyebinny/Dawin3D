@@ -14,18 +14,26 @@
 
 </div>
 
-(./assets/Dawin3D_teaser.jpg)
+![Teaser](./assets/Dawin3D_teaser.jpg)
 
 ## Abstract
 
 Conent
 
 ## Overview
-(./assets/Overall.jpg)
+
+![Overall arch](./assets/Overall.jpg)
+
+The model takes either point clouds or meshes as input and utilizes the spatial coordinates and point attributes of scene points to extract discriminative features for segmentation.
+First, each scene is voxelized and feature representations are constructed through the Initial Feature Embedding module, which primarily employs sparse convolutional operations to efficiently capture spatial  structures within the voxel grid. 
+The initialized voxel features are then progressively refined into high-level representations through a sequene of Dawin3D blocks followed by downsampling, except for the final stage.
+Fianlly, a UNet shaped upsampling과 classifier를 통해서 공간의 각 ponit의 semantic label을 예측한다.
+
 
 ## DW-MSA3D
-(./assets/dawin3D_block.jpg)
-Dynamic window Multi-head self attention
+![Dawin3D block](./assets/dawin3D_block.jpg)
+
+
 
 
 ### Semantic Segmenttion on ScanNet (v2) and S3DIS
