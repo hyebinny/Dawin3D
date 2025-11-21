@@ -14,7 +14,7 @@
 
 </div>
 
-![Teaser](./assets/Dawin3D_teaser.jpg)
+![Teaser](./asset/Dawin3D_teaser.jpg)
 
 ## Abstract
 
