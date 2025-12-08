@@ -6,24 +6,24 @@ import os
 from setuptools import setup, find_packages
 from torch.utils.cpp_extension import BuildExtension, CUDAExtension
 
-src_dir = 'Dawin3D-S/src/attn'
+src_dir = 'Dawin3D_S/src/attn'
 src_files = [os.path.join(src_dir, _f) for _f in os.listdir(src_dir) if 
     os.path.splitext(_f)[1] in ['.cu', '.cpp']]
 
 setup(
-    name='Dawin3D-S',
+    name='Dawin3D_S',
     packages=find_packages(exclude=[]),
     ext_modules=[
         CUDAExtension(
-            name='Dawin3D-S.sparse_dl.attn_cuda',
+            name='Dawin3D_S.sparse_dl.attn_cuda',
             sources=src_files,
             extra_compile_args={'cxx': ['-g'],
                                 'nvcc': ['-O2']}),
         CUDAExtension(
-            name='Dawin3D-S.sparse_dl.knn_cuda',
+            name='Dawin3D_S.sparse_dl.knn_cuda',
             sources=[
-                'Dawin3D-S/src/knn/knn_api.cpp',
-                'Dawin3D-S/src/knn/knn_cuda_kernel.cu'],
+                'Dawin3D_S/src/knn/knn_api.cpp',
+                'Dawin3D_S/src/knn/knn_cuda_kernel.cu'],
             extra_compile_args={'cxx': ['-g'],
                                 'nvcc': ['-O2']}),
     ],

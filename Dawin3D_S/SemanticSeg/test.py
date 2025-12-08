@@ -141,7 +141,7 @@ def main_worker(gpu, ngpus_per_node, argss):
         raise NotImplementedError
 
     # get model
-    model = model_module.Dawin3D2(
+    model = model_module.Dawin3D_S(
         depths=args.depths,
         channels=args.channels,
         num_heads=args.num_heads,
