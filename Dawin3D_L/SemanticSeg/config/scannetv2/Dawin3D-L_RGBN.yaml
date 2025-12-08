@@ -11,7 +11,7 @@ DATA:
 
 TRAIN:
   # arch
-  arch: Dawin3D-L_RGBN
+  arch: Dawin3D_L_RGBN
   fp16_mode: 0
   stem_transformer: True
   use_xyz: True
