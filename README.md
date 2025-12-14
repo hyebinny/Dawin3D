@@ -10,8 +10,6 @@
 <sup>1</sup>  Ewha Womans University  
 <sup>2</sup>  Kookmin University
 
-📝 Paper: (paper link)
-
 </div>
 
 ![Teaser](./asset/Dawin3D_teaser.jpg)
@@ -66,10 +64,10 @@ This mechanism enables the model to effectively integrate information across spa
 | MinkowskiNet [6]       | 72.1             | 65.4          | -             |
 | Point Transformer [32] | -                | 70.4          | 73.5          |
 | Stratified Transformer [33] | 74.3      | 72.0          | -             |
-| Swin3D-S [34]          | 76.4             | **72.5**      | **76.9**      |
+| Swin3D-S [34]          | 76.4             | 72.5      | 76.9      |
 | Swin3D-L [34]          | 74.2             | -             | -             |
-| **Dawin3D-S (Ours)**   | **76.4**         | 70.2          | 75.2          |
-| **Dawin3D-L (Ours)**   | **76.7**         | 70.3          | 75.4          |
+| **Dawin3D-S (Ours)**   | 76.4         | 70.2          | 75.2          |
+| **Dawin3D-L (Ours)**   | 76.7         | 70.3          | 75.4          |
 <br>
 
 ### Visual comparison
@@ -129,13 +127,9 @@ python test.py --config config/scannetv2/Dawin3D_RGBN_L.yaml --vote_num 12 args.
 ```
 For S3DIS testing, you can modify the `test_area` field in the configuration file to perform inference on each individual area.  
 
-The trained models can be downloaded from the following link:  
-https://drive.google.com/drive/folders/1C58dVrXNqGyQI03a5wQWESOkJHggnzCf?usp=drive_link
-
-
 ## Citation
 ```
-bib
+.
 ```
 
 ## Acknowledgment
