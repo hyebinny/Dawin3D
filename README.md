@@ -1,7 +1,7 @@
 
 <div align="center">
 <h1> Dawin3D </h1>
-<h3> Dynamic Window Transformer for 3D Indoor Scene Understanding </h3>
+<h3> Dynamic Window Transformer for Three-Dimensional Indoor Scene Segmentation </h3>
 
 <sup>1</sup> Hyebin Kim ,
 <sup>1</sup> Jungho Yoon,
