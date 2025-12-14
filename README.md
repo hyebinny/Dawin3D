@@ -4,8 +4,8 @@
 <h3> Dynamic Window Transformer for 3D Indoor Scene Understanding </h3>
 
 <sup>1</sup> Hyebin Kim ,
-<sup>2</sup> Sangmin Yoon,
-<sup>1</sup> Jungho Yoon
+<sup>1</sup> Jungho Yoon,
+<sup>2</sup> Sangmin Yoon
 
 <sup>1</sup>  Ewha Womans University  
 <sup>2</sup>  Kookmin University
