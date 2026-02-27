@@ -10,7 +10,8 @@
 <sup>1</sup>  Department of Mathematics, Ewha Womans University, 52, Ewhayeodae-gil, Seodaemun-gu, Seoul 03760, Korea
 <sup>2</sup>  HCI Lab., College of Computer Science, Kookmin University, 77 Jeongneung-ro, Seoul 02707, Korea
 
-📄 Paper: https://www.sciencedirect.com/science/article/pii/S0925231226001438
+📄 Paper: Neurocomputing, Volume 671, 28 March 2026  
+🔗 https://www.sciencedirect.com/science/article/pii/S0925231226001438
 
 </div>
 
@@ -131,7 +132,14 @@ For S3DIS testing, you can modify the `test_area` field in the configuration fil
 
 ## Citation
 ```
-.
+@article{kim2026dynamic,
+  title={Dynamic window transformer for three-dimensional indoor scene segmentation},
+  author={Kim, Hyebin and Yoon, Jungho and Yoon, Sang Min},
+  journal={Neurocomputing},
+  pages={132746},
+  year={2026},
+  publisher={Elsevier}
+}
 ```
 
 ## Acknowledgment
