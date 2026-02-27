@@ -7,8 +7,10 @@
 <sup>1</sup> Jungho Yoon,
 <sup>2</sup> Sangmin Yoon
 
-<sup>1</sup>  Ewha Womans University  
-<sup>2</sup>  Kookmin University
+<sup>1</sup>  Department of Mathematics, Ewha Womans University, 52, Ewhayeodae-gil, Seodaemun-gu, Seoul 03760, Korea
+<sup>2</sup>  HCI Lab., College of Computer Science, Kookmin University, 77 Jeongneung-ro, Seoul 02707, Korea
+
+📄 Paper: https://www.sciencedirect.com/science/article/pii/S0925231226001438
 
 </div>
 
